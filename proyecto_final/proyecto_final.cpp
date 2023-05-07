@@ -12,7 +12,10 @@ int main()
 {
 
     Lista* list = new Lista;
-    int resp, buscar_id;
+    libro book;
+    int resp, buscar_id, id, paginas, posicion;
+    char autor[30], titulo[30];
+    float precio;
     do {
         cout << "*** Almacen de libros ***" << endl;
         cout << "1. Altas" << endl;
@@ -30,14 +33,99 @@ int main()
             cin >> resp;
             switch (resp) {
             case 1: {
-
+                cout << "*** Insertar producto al inicio ***" << endl;
+                id = rand();
+                book.setId(id);
+                cout << "Ingrese el precio del libro: ";
+                cin >> precio;
+                book.setPrecio(precio);
+                cout << "Ingrese el numero de paginas del libro: ";
+                cin >> paginas;
+                book.setPaginas(paginas);
+                cout << "Ingrese el titulo del libro: ";
+                cin.ignore();
+                cin.getline(titulo, 30);
+                book.setTitulo(titulo);
+                //cin.ignore();
+                cout << "Ingrese el nombre del autor del libro: ";
+                cin.getline(autor, 30);
+                book.setAutor(autor);
+                list->insertarInicio(book);
+                cout << "Producto ingresado con exito!" << endl;
 
                 break;
             }case 2: {
-
+                cout << "*** Insertar producto por posicion ***" << endl;
+                if (list->vacia() == false) {
+                    cout << "Escriba la posicion en la que quiere insertar el elemento: ";
+                    cin >> posicion;
+                    if (posicion > 0 && posicion <= list->tamanoLista()) {
+                        id = rand();
+                        book.setId(id);
+                        cout << "Ingrese la posicion a la que desea ingresar un libro: ";
+                        cin >> posicion;
+                        cout << "Ingrese el precio del libro: ";
+                        cin >> precio;
+                        book.setPrecio(precio);
+                        cout << "Ingrese el numero de paginas del libro: ";
+                        cin >> paginas;
+                        book.setPaginas(paginas);
+                        cout << "Ingrese el titulo del libro: ";
+                        cin.ignore();
+                        cin.getline(titulo, 30);
+                        book.setTitulo(titulo);
+                        
+                        cout << "Ingrese el nombre del autor del libro: ";
+                        cin.getline(autor, 30);
+                        book.setAutor(autor);
+                        list->insertarPosicion(posicion, book);
+                        cout << "Producto ingresado con exito!" << endl;
+                    }if (posicion == list->tamanoLista() + 1) {
+                        
+                        id = rand();
+                        book.setId(id);
+                        cout << "Ingrese el precio del libro: ";
+                        cin >> precio;
+                        book.setPrecio(precio);
+                        cout << "Ingrese el numero de paginas del libro: ";
+                        cin >> paginas;
+                        book.setPaginas(paginas);
+                        cout << "Ingrese el titulo del libro: ";
+                        cin.ignore();
+                        cin.getline(titulo, 30);
+                        book.setTitulo(titulo);
+                        
+                        cout << "Ingrese el nombre del autor del libro: ";
+                        cin.getline(autor, 30);
+                        book.setAutor(autor);
+                        cout << "Producto ingresado con exito!" << endl;
+                        list->insertarFinal(book);
+                    }
+                    else {
+                        cout << "La posicion deseada no es valida" << endl;
+                    }
+                }
                 break;
             }case 3: {
+                cout << "*** Insertar al final ***" << endl;
+                id = rand();
+                book.setId(id);
+                cout << "Ingrese el precio del libro: ";
+                cin >> precio;
+                book.setPrecio(precio);
+                cout << "Ingrese el numero de paginas del libro: ";
+                cin >> paginas;
+                book.setPaginas(paginas);
+                cout << "Ingrese el titulo del libro: ";
+                cin.ignore();
+                cin.getline(titulo, 30);
+                book.setTitulo(titulo);
 
+                cout << "Ingrese el nombre del autor del libro: ";
+                cin.getline(autor, 30);
+                book.setAutor(autor);
+                cout << "Producto ingresado con exito!" << endl;
+                list->insertarFinal(book);
 
                 break;
             }default: {
@@ -55,10 +143,24 @@ int main()
             cin >> resp;
             switch (resp) {
             case 1: {
+                cout << "*** Eliminar libro ***" << endl;
+                if (list->vacia() == false) {
 
+                    cout << "Ingrese el id del libro: ";
+                    cin >> id;
+                    book.setId(id);
+
+                    list->eliminar(book);
+                }
 
                 break;
             }case 2: {
+                cout << "*** Eliminando todo ***" << endl;
+                cout << endl;
+                if (list->vacia() == false) {
+                    list->eliminarTodo();
+                }
+
 
                 break;
             }default: {
@@ -72,17 +174,40 @@ int main()
             break;
         }case 3: {
             cout << "*** CONSULTAR ***" << endl;
-            cout << "Ingrese el ID del libro que desea buscar: ";
-            cin >> buscar_id;
+            cout << "1. Mostrar todo" << endl;
+            cout << "2. Mostrar libro" << endl;
+            cin >> resp;
+            switch (resp) {
+            case 1: {
+                list->mostrar();
+                break;
+            }case 2: {
+            cout << "Ingrese el titulo del libro: ";
+            cin.ignore();
+            cin.getline(titulo, 30);
+            book.setTitulo(titulo);
+        
+            cout << "Ingrese el nombre del autor del libro: ";
+            cin.getline(autor, 30);
+            book.setAutor(autor);
+            
+            list->mostrarLibro( book);
 
-
+                break;
+            }default: {
+                cout << "Ingresa una opcion valida" << endl;
+            }
+            }
+            resp = 0;
             break;
         }case 4: {
  
             cout << "MODIFICAR REGISTRO" << endl;
             cout << "Ingrese el ID del libro que desea modificar: ";
             cin >> buscar_id;
-
+            book.setId(buscar_id);
+            list->modificarRegistro(book);
+            cout << "Registro modificado" << endl;
             break;
         }case 5: {
 
@@ -96,7 +221,7 @@ int main()
         }
         
     } while (resp != 5);
-    cout << "Hello World!\n";
+  
 
 
 

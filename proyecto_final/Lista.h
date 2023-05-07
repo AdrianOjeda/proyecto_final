@@ -13,10 +13,13 @@ public:
 	void eliminarTodo();
 	void eliminar(libro);
 	void insertarFinal(libro);
+	void mostrarLibro(libro);
 	bool vacia();
 	int tamanoLista();
 	void insertarPosicion(int, libro);
-	int buscar(libro);
+	int buscar(int);
+	void eliminarPosicion(int);
+	void modificarRegistro(libro);
 	
 	void mergeSort(int, Lista*);
 

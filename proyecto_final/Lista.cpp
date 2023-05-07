@@ -34,8 +34,8 @@ void Lista::mostrar() {
 	Nodo* aux = header;
 
 	if (header) {
-		while (aux != tail->sig) {
-			cout << "Titulo: " << aux->book.getTitulo() << "Autor: " << aux->book.getAutor() << " | Precio: " << aux->book.getPrecio() << "Paginas: " << aux->book.getPaginas() << " | Id: " << aux->book.getId() << endl;
+		while (aux ) {
+			cout << "Titulo: " << aux->book.getTitulo() << " | Autor: " << aux->book.getAutor() << " | Precio: " << aux->book.getPrecio() << " | Paginas: " << aux->book.getPaginas() << " | Id: " << aux->book.getId() << endl;
 			aux = aux->sig;
 		}
 		cout << endl;
@@ -95,7 +95,7 @@ void Lista::eliminar(libro book) {
 			header = header->sig;
 			//header->ant->sig = nullptr;
 			delete aux;
-			cout << "Libro eliminado con exito!" << endl;
+			//cout << "Libro eliminado con exito!" << endl;
 
 		}
 		else if (aux->sig == nullptr) {
@@ -105,7 +105,7 @@ void Lista::eliminar(libro book) {
 
 			//auxAnterior->sig = nullptr;
 			delete aux;
-			cout << "Libro eliminado con exito!" << endl;
+			//cout << "Libro eliminado con exito!" << endl;
 
 		}
 		else {
@@ -114,7 +114,7 @@ void Lista::eliminar(libro book) {
 			aux->sig->ant = aux->ant;
 			//auxAnterior->sig = aux->sig;
 			delete aux;
-			cout << "Libro eliminado con exito!" << endl;
+			//cout << "Libro eliminado con exito!" << endl;
 		}
 
 	}
@@ -170,15 +170,16 @@ void Lista::insertarPosicion(int posicion, libro book) {
 		cout << "Libro ingresado con exito!" << endl;
 	}
 
+
 }
 
-int Lista::buscar(libro book) {
+int Lista::buscar(int id) {
 	Nodo* aux = header;
 	Nodo* auxAnterior = nullptr;
 	int contador = 1;
 	bool bandera = true;
 	while (aux && bandera) {
-		if (book.getId() == aux->book.getId()) {
+		if (aux->book.getId()==id) {
 			bandera = false;
 		}
 		else {
@@ -186,11 +187,132 @@ int Lista::buscar(libro book) {
 			aux = aux->sig;
 			contador++;
 		}
+	}if (bandera != false) {
+		cout << "No existe un libro con ese ID!" << endl;
+		return 0;
 	}
-	return contador;
+	else {
+		return contador;
+	}
+}
+void Lista::eliminarPosicion(int posicion) {
+	Nodo* aux = header;
+	Nodo* auxAnterior = nullptr;
+	bool bandera = true;
+	int contador = 0;
+	if (header != nullptr) {
+		while (aux && bandera) {
+			if (contador==posicion) {
+				bandera = false;
+			}
+			else {
+				auxAnterior = aux;
+				aux = aux->sig;
+
+			}
+		}
+		if (aux == nullptr) {
+			cout << "No se encontro el libro" << endl;
+
+		}
+		else if (aux == header) {
+			header = header->sig;
+			//header->ant->sig = nullptr;
+			delete aux;
+			//cout << "Libro eliminado con exito!" << endl;
+
+		}
+		else if (aux->sig == nullptr) {
+			tail = tail->ant;
+			tail->sig = nullptr;
+			//aux->ant->sig=nullptr;
+
+			//auxAnterior->sig = nullptr;
+			delete aux;
+			//cout << "Libro eliminado con exito!" << endl;
+
+		}
+		else {
+
+			aux->ant->sig = aux->sig;
+			aux->sig->ant = aux->ant;
+			//auxAnterior->sig = aux->sig;
+			delete aux;
+			//cout << "Libro eliminado con exito!" << endl;
+		}
+
+	}
 }
 
 
+void Lista::mostrarLibro(libro book) {
+	Nodo* aux = header;
+	Nodo* auxAnterior = nullptr;
+	bool bandera = true;
+	while (aux && bandera) {
+		if (strcmp(book.getTitulo(), aux->book.getTitulo()) == 0 && strcmp(book.getAutor(), aux->book.getAutor()) == 0) {
+			bandera = false;
+		}
+		else {
+			auxAnterior = aux;
+			aux = aux->sig;
+		}
+	}
+	if (bandera == false) {
+
+	cout << "*** DATOS DEL LIBRO ***" << endl;
+	cout << "Titulo: " << aux->book.getTitulo() << endl;
+	cout << "Autor: " << aux->book.getAutor() << endl;
+	cout << "Precio: " << aux->book.getPrecio() << endl;
+	cout << "Paginas: " << aux->book.getPaginas() << endl;
+	cout << "ID: " << aux->book.getId() << endl;
+	
+	}
+	else {
+		cout << "El libro no se encuentra en la lista" << endl;
+	}
+		
+	
+}
+
+void Lista::modificarRegistro(libro book) {
+	Nodo* aux = header;
+	Nodo* auxAnterior = nullptr;
+	bool bandera = true;
+	while (aux && bandera) {
+		if (book.getId()==aux->book.getId()) {
+			bandera = false;
+		}
+		else {
+			auxAnterior = aux;
+			aux = aux->sig;
+		}
+	}
+	if (bandera == false) {
+		int precio, paginas;
+		char titulo[30], autor[30];
+
+		cout << "*** INGRESE LOS NUEVOS DATOS ***" << endl;
+
+		cout << "Ingrese el precio del libro: ";
+		cin >> precio;
+		aux->book.setPrecio(precio);
+		cout << "Ingrese el numero de paginas del libro: ";
+		cin >> paginas;
+		aux->book.setPaginas(paginas);
+		cout << "Ingrese el titulo del libro: ";
+		cin.ignore();
+		cin.getline(titulo, 30);
+		aux->book.setTitulo(titulo);
+		
+		cout << "Ingrese el nombre del autor del libro: ";
+		cin.getline(autor, 30);
+		aux->book.setAutor(autor);
+	}
+	else {
+		cout << "El libro no se encuentra en la lista" << endl;
+	}
+}
 
 
 void Lista::mergeSort(int contador, Lista* list) {
