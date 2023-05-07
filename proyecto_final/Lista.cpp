@@ -93,28 +93,20 @@ void Lista::eliminar(libro book) {
 		}
 		else if (aux == header) {
 			header = header->sig;
-			//header->ant->sig = nullptr;
 			delete aux;
-			//cout << "Libro eliminado con exito!" << endl;
 
 		}
 		else if (aux->sig == nullptr) {
 			tail = tail->ant;
 			tail->sig = nullptr;
-			//aux->ant->sig=nullptr;
-
-			//auxAnterior->sig = nullptr;
 			delete aux;
-			//cout << "Libro eliminado con exito!" << endl;
 
 		}
 		else {
 
 			aux->ant->sig = aux->sig;
 			aux->sig->ant = aux->ant;
-			//auxAnterior->sig = aux->sig;
 			delete aux;
-			//cout << "Libro eliminado con exito!" << endl;
 		}
 
 	}
@@ -123,7 +115,6 @@ void Lista::eliminar(libro book) {
 bool Lista::vacia() {
 
 	if (header) {
-		//cout << "hola" << endl;
 		return false;
 	}
 	else {
@@ -147,7 +138,6 @@ int Lista::tamanoLista() {
 void Lista::insertarPosicion(int posicion, libro book) {
 	int contador = 0;
 	Nodo* aux = header;
-	//Nodo* auxAnterior = nullptr;
 	Nodo* temp = new Nodo(book, nullptr, nullptr);
 	if (posicion == 1) {
 		temp->sig = header;
@@ -169,8 +159,6 @@ void Lista::insertarPosicion(int posicion, libro book) {
 		aux->ant = temp;
 		cout << "Libro ingresado con exito!" << endl;
 	}
-
-
 }
 
 int Lista::buscar(int id) {
@@ -195,54 +183,7 @@ int Lista::buscar(int id) {
 		return contador;
 	}
 }
-void Lista::eliminarPosicion(int posicion) {
-	Nodo* aux = header;
-	Nodo* auxAnterior = nullptr;
-	bool bandera = true;
-	int contador = 0;
-	if (header != nullptr) {
-		while (aux && bandera) {
-			if (contador==posicion) {
-				bandera = false;
-			}
-			else {
-				auxAnterior = aux;
-				aux = aux->sig;
 
-			}
-		}
-		if (aux == nullptr) {
-			cout << "No se encontro el libro" << endl;
-
-		}
-		else if (aux == header) {
-			header = header->sig;
-			//header->ant->sig = nullptr;
-			delete aux;
-			//cout << "Libro eliminado con exito!" << endl;
-
-		}
-		else if (aux->sig == nullptr) {
-			tail = tail->ant;
-			tail->sig = nullptr;
-			//aux->ant->sig=nullptr;
-
-			//auxAnterior->sig = nullptr;
-			delete aux;
-			//cout << "Libro eliminado con exito!" << endl;
-
-		}
-		else {
-
-			aux->ant->sig = aux->sig;
-			aux->sig->ant = aux->ant;
-			//auxAnterior->sig = aux->sig;
-			delete aux;
-			//cout << "Libro eliminado con exito!" << endl;
-		}
-
-	}
-}
 
 
 void Lista::mostrarLibro(libro book) {

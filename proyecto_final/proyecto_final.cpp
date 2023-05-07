@@ -23,6 +23,7 @@ int main()
         cout << "3. Consultar" << endl;
         cout << "4. Modificar registro" << endl;
         cout << "5. Salir" << endl;
+        cout << "6. Ordenar" << endl;
         cin >> resp;
         switch (resp) {
         case 1: {
@@ -213,6 +214,13 @@ int main()
 
             cout << "Saliendo del programa..." << endl;
             break;
+
+        }case 6: {
+            int tamano = list->tamanoLista();
+            list->mergeSort(tamano, list);
+            cout << "***LISTA ORDENADA ***" << endl;
+
+
 
         }default: {
             cout << "Ingrese una opcion correcta!" << endl;

@@ -18,9 +18,7 @@ public:
 	int tamanoLista();
 	void insertarPosicion(int, libro);
 	int buscar(int);
-	void eliminarPosicion(int);
 	void modificarRegistro(libro);
-	
 	void mergeSort(int, Lista*);
 
 
